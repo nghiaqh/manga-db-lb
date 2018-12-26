@@ -1,5 +1,7 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
 import {Image} from './image.model';
+import {Artist} from './artist.model';
+import {Chapter} from './chapter.model';
 
 @model()
 export class Oneshot extends Entity {
@@ -32,6 +34,12 @@ export class Oneshot extends Entity {
     required: true,
   })
   isCompleted: string;
+
+  @hasMany(() => Artist)
+  artists?: Artist[];
+
+  @hasMany(() => Chapter)
+  chapters?: Chapter[];
 
   constructor(data?: Partial<Oneshot>) {
     super(data);
