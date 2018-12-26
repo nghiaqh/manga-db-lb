@@ -1,0 +1,39 @@
+import {Entity, model, property} from '@loopback/repository';
+import {Image} from './image.model';
+
+@model()
+export class Series extends Entity {
+  @property({
+    type: 'string',
+    required: true,
+  })
+  title: string;
+
+  @property({
+    type: 'string',
+  })
+  description?: string;
+
+  @property({
+    type: 'string',
+    default: 'Manga',
+  })
+  type?: string;
+
+  @property({
+    type: 'array',
+    itemType: 'Image',
+  })
+  preview?: Image[];
+
+  @property({
+    type: 'boolean',
+    default: false,
+    required: true,
+  })
+  isCompleted: string;
+
+  constructor(data?: Partial<Series>) {
+    super(data);
+  }
+}
