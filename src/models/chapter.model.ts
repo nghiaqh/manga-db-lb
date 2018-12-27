@@ -13,6 +13,13 @@ import {Volume} from './volume.model';
 @model()
 export class Chapter extends Entity {
   @property({
+    type: 'number',
+    id: true,
+    required: true,
+  })
+  id: number;
+
+  @property({
     type: 'string',
     required: true,
   })

@@ -7,6 +7,13 @@ import {Artist} from './artist.model';
 @model()
 export class Series extends Entity {
   @property({
+    type: 'number',
+    id: true,
+    required: true,
+  })
+  id: number;
+
+  @property({
     type: 'string',
     required: true,
   })

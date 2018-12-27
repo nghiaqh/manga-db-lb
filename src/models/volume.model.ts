@@ -12,6 +12,13 @@ import {Series} from './series.model';
 @model()
 export class Volume extends Entity {
   @property({
+    type: 'number',
+    id: true,
+    required: true,
+  })
+  id: number;
+
+  @property({
     type: 'string',
     required: true,
   })

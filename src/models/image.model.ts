@@ -1,7 +1,15 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Chapter} from './chapter.model';
 
 @model()
 export class Image extends Entity {
+  @property({
+    type: 'number',
+    id: true,
+    required: true,
+  })
+  id: number;
+
   @property({
     type: 'string',
     required: true,
@@ -37,6 +45,9 @@ export class Image extends Entity {
     required: true,
   })
   ratio: string;
+
+  @belongsTo(() => Chapter)
+  chapterId: string;
 
   constructor(data?: Partial<Image>) {
     super(data);
