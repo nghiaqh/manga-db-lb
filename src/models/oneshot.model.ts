@@ -5,7 +5,6 @@ import {
   hasMany,
   belongsTo,
 } from '@loopback/repository';
-import {Image} from './image.model';
 import {Artist} from './artist.model';
 import {Chapter} from './chapter.model';
 
@@ -37,9 +36,9 @@ export class Oneshot extends Entity {
 
   @property({
     type: 'array',
-    itemType: 'Image',
+    itemType: 'number',
   })
-  preview?: Image[];
+  preview?: number[];
 
   @property({
     type: 'boolean',

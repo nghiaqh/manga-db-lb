@@ -5,7 +5,6 @@ import {
   hasMany,
   belongsTo,
 } from '@loopback/repository';
-import {Image} from './image.model';
 import {Chapter} from './chapter.model';
 import {Series} from './series.model';
 
