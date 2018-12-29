@@ -32,11 +32,11 @@ export class ArtistRepository extends DefaultCrudRepository<
     getSeriesRepository: Getter<SeriesRepository>,
   ) {
     super(Artist, dataSource);
-    this.oneshots = this._createHasManyRepositoryFactoryFor(
+    this.oneshots = this.createHasManyRepositoryFactoryFor(
       'oneshots',
       getOneshotRepository,
     );
-    this.series = this._createHasManyRepositoryFactoryFor(
+    this.series = this.createHasManyRepositoryFactoryFor(
       'series',
       getSeriesRepository,
     );

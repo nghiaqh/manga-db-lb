@@ -31,15 +31,15 @@ export class Volume extends Entity {
 
   @property({
     type: 'array',
-    itemType: 'Image',
+    itemType: 'number',
   })
-  preview?: Image[];
+  preview?: number[];
 
   @hasMany(() => Chapter)
   chapters?: Chapter[];
 
   @belongsTo(() => Series)
-  seriesId: string;
+  seriesId: number;
 
   constructor(data?: Partial<Volume>) {
     super(data);

@@ -1,4 +1,10 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {
+  Entity,
+  model,
+  property,
+  hasMany,
+  belongsTo,
+} from '@loopback/repository';
 import {Image} from './image.model';
 import {Volume} from './volume.model';
 import {Chapter} from './chapter.model';
@@ -32,9 +38,9 @@ export class Series extends Entity {
 
   @property({
     type: 'array',
-    itemType: 'Image',
+    itemType: 'number',
   })
-  preview?: Image[];
+  preview?: number[];
 
   @property({
     type: 'boolean',
@@ -49,8 +55,8 @@ export class Series extends Entity {
   @hasMany(() => Chapter)
   chapters?: Chapter[];
 
-  @hasMany(() => Artist)
-  artists?: Artist[];
+  @belongsTo(() => Artist)
+  artistId: number;
 
   constructor(data?: Partial<Series>) {
     super(data);

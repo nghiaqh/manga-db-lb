@@ -1,4 +1,10 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {
+  Entity,
+  model,
+  property,
+  hasMany,
+  belongsTo,
+} from '@loopback/repository';
 import {Image} from './image.model';
 import {Artist} from './artist.model';
 import {Chapter} from './chapter.model';
@@ -42,8 +48,8 @@ export class Oneshot extends Entity {
   })
   isCompleted: string;
 
-  @hasMany(() => Artist)
-  artists?: Artist[];
+  @belongsTo(() => Artist)
+  artistId?: number;
 
   @hasMany(() => Chapter)
   chapters?: Chapter[];

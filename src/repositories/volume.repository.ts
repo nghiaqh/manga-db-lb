@@ -33,11 +33,11 @@ export class VolumeRepository extends DefaultCrudRepository<
     getChaptersRepository: Getter<ChapterRepository>,
   ) {
     super(Volume, dataSource);
-    this.series = this._createBelongsToAccessorFor(
+    this.series = this.createBelongsToAccessorFor(
       'series',
       getSeriesRepository,
     );
-    this.chapters = this._createHasManyRepositoryFactoryFor(
+    this.chapters = this.createHasManyRepositoryFactoryFor(
       'chapters',
       getChaptersRepository,
     );

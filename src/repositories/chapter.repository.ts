@@ -49,19 +49,19 @@ export class ChapterRepository extends DefaultCrudRepository<
     getImagesRepository: Getter<ImageRepository>,
   ) {
     super(Chapter, dataSource);
-    this.oneshot = this._createBelongsToAccessorFor(
+    this.oneshot = this.createBelongsToAccessorFor(
       'oneshot',
       getOneshotRepository,
     );
-    this.series = this._createBelongsToAccessorFor(
+    this.series = this.createBelongsToAccessorFor(
       'series',
       getSeriesRepository,
     );
-    this.volume = this._createBelongsToAccessorFor(
+    this.volume = this.createBelongsToAccessorFor(
       'volume',
       getVolumeRepository,
     );
-    this.images = this._createHasManyRepositoryFactoryFor(
+    this.images = this.createHasManyRepositoryFactoryFor(
       'images',
       getImagesRepository,
     );

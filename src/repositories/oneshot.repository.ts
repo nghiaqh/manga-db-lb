@@ -2,6 +2,7 @@ import {
   DefaultCrudRepository,
   juggler,
   HasManyRepositoryFactory,
+  BelongsToAccessor,
   repository,
 } from '@loopback/repository';
 import {Oneshot, Chapter, Artist} from '../models';
@@ -14,7 +15,7 @@ export class OneshotRepository extends DefaultCrudRepository<
   Oneshot,
   typeof Oneshot.prototype.id
 > {
-  public readonly artists: HasManyRepositoryFactory<
+  public readonly artist: BelongsToAccessor<
     Artist,
     typeof Oneshot.prototype.id
   >;
@@ -32,11 +33,11 @@ export class OneshotRepository extends DefaultCrudRepository<
     getChaptersRepository: Getter<ChapterRepository>,
   ) {
     super(Oneshot, dataSource);
-    this.artists = this._createHasManyRepositoryFactoryFor(
-      'artists',
+    this.artist = this.createBelongsToAccessorFor(
+      'artist',
       getArtistsRepository,
     );
-    this.chapters = this._createHasManyRepositoryFactoryFor(
+    this.chapters = this.createHasManyRepositoryFactoryFor(
       'chapters',
       getChaptersRepository,
     );

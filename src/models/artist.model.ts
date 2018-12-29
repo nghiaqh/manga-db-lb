@@ -33,7 +33,7 @@ export class Artist extends Entity {
   type?: string;
 
   @hasMany(() => Oneshot)
-  onshots?: Oneshot[];
+  oneshots?: Oneshot[];
 
   @hasMany(() => Series)
   series?: Series[];

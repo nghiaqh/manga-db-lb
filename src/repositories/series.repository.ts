@@ -2,6 +2,7 @@ import {
   DefaultCrudRepository,
   juggler,
   HasManyRepositoryFactory,
+  BelongsToAccessor,
   repository,
 } from '@loopback/repository';
 import {Series, Volume, Chapter, Artist} from '../models';
@@ -15,10 +16,7 @@ export class SeriesRepository extends DefaultCrudRepository<
   Series,
   typeof Series.prototype.id
 > {
-  public readonly artists: HasManyRepositoryFactory<
-    Artist,
-    typeof Series.prototype.id
-  >;
+  public readonly artist: BelongsToAccessor<Artist, typeof Series.prototype.id>;
 
   public readonly volumes: HasManyRepositoryFactory<
     Volume,
@@ -40,15 +38,15 @@ export class SeriesRepository extends DefaultCrudRepository<
     getChaptersRepository: Getter<ChapterRepository>,
   ) {
     super(Series, dataSource);
-    this.artists = this._createHasManyRepositoryFactoryFor(
-      'artists',
+    this.artist = this.createBelongsToAccessorFor(
+      'artist',
       getArtistsRepository,
     );
-    this.volumes = this._createHasManyRepositoryFactoryFor(
+    this.volumes = this.createHasManyRepositoryFactoryFor(
       'chapters',
       getVolumesRepository,
     );
-    this.chapters = this._createHasManyRepositoryFactoryFor(
+    this.chapters = this.createHasManyRepositoryFactoryFor(
       'chapters',
       getChaptersRepository,
     );

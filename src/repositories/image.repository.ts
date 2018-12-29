@@ -24,7 +24,7 @@ export class ImageRepository extends DefaultCrudRepository<
     getChaptersRepository: Getter<ChapterRepository>,
   ) {
     super(Image, dataSource);
-    this.chapter = this._createBelongsToAccessorFor(
+    this.chapter = this.createBelongsToAccessorFor(
       'chapter',
       getChaptersRepository,
     );

@@ -32,9 +32,9 @@ export class Chapter extends Entity {
 
   @property({
     type: 'array',
-    itemType: 'Image',
+    itemType: 'number',
   })
-  preview?: Image[];
+  preview?: number[];
 
   @property({
     type: 'number',
@@ -46,13 +46,13 @@ export class Chapter extends Entity {
   images?: Image[];
 
   @belongsTo(() => Oneshot)
-  onshotId: string;
+  oneshotId: number;
 
   @belongsTo(() => Series)
-  seriesId: string;
+  seriesId: number;
 
   @belongsTo(() => Volume)
-  volumeId: string;
+  volumeId: number;
 
   constructor(data?: Partial<Chapter>) {
     super(data);

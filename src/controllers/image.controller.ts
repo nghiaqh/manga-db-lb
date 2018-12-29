@@ -22,7 +22,7 @@ import {ImageRepository} from '../repositories';
 export class ImageController {
   constructor(
     @repository(ImageRepository)
-    public imageRepository : ImageRepository,
+    public imageRepository: ImageRepository,
   ) {}
 
   @post('/images', {

@@ -20,7 +20,7 @@ export class Image extends Entity {
     type: 'string',
     required: true,
   })
-  uri: string;
+  src: string;
 
   @property({
     type: 'number',
@@ -47,7 +47,7 @@ export class Image extends Entity {
   ratio: string;
 
   @belongsTo(() => Chapter)
-  chapterId: string;
+  chapterId: number;
 
   constructor(data?: Partial<Image>) {
     super(data);
