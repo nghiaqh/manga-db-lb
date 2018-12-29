@@ -4,4 +4,3 @@ export * from './chapter.model';
 export * from './series.model';
 export * from './volume.model';
 export * from './image.model';
-export * from './test.model';
