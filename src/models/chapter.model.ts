@@ -45,7 +45,7 @@ export class Chapter extends Entity {
   images?: Image[];
 
   @belongsTo(() => Manga)
-  MangaId: number;
+  mangaId: number;
 
   @belongsTo(() => Volume)
   volumeId: number;
