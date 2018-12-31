@@ -6,16 +6,16 @@ import {
   belongsTo,
 } from '@loopback/repository';
 import {Chapter} from './chapter.model';
-import {Series} from './series.model';
+import {Manga} from './manga.model';
 
 @model()
 export class Volume extends Entity {
   @property({
     type: 'number',
     id: true,
-    required: true,
+    generated: true,
   })
-  id: number;
+  id?: number;
 
   @property({
     type: 'string',
@@ -34,11 +34,17 @@ export class Volume extends Entity {
   })
   preview?: number[];
 
-  @hasMany(() => Chapter)
+  @property({
+    type: 'number',
+    required: true,
+  })
+  number: number;
+
+  @hasMany(() => Chapter, {keyTo: 'id'})
   chapters?: Chapter[];
 
-  @belongsTo(() => Series)
-  seriesId: number;
+  @belongsTo(() => Manga)
+  mangaId: number;
 
   constructor(data?: Partial<Volume>) {
     super(data);

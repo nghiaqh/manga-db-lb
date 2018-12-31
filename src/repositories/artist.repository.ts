@@ -4,41 +4,30 @@ import {
   HasManyRepositoryFactory,
   repository,
 } from '@loopback/repository';
-import {Artist, Oneshot, Series} from '../models';
+import {Artist, Manga} from '../models';
 import {MysqlDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
-import {OneshotRepository} from './oneshot.repository';
-import {SeriesRepository} from './series.repository';
+import {MangaRepository} from './manga.repository';
 
 export class ArtistRepository extends DefaultCrudRepository<
   Artist,
   typeof Artist.prototype.id
 > {
-  public readonly oneshots: HasManyRepositoryFactory<
-    Oneshot,
-    typeof Artist.prototype.id
-  >;
-
-  public readonly series: HasManyRepositoryFactory<
-    Series,
+  public readonly mangas: HasManyRepositoryFactory<
+    Manga,
     typeof Artist.prototype.id
   >;
 
   constructor(
     @inject('datasources.mysql') dataSource: MysqlDataSource,
-    @repository.getter('OneshotRepository')
-    getOneshotRepository: Getter<OneshotRepository>,
-    @repository.getter('SeriesRepository')
-    getSeriesRepository: Getter<SeriesRepository>,
+    @repository.getter('MangaRepository')
+    getMangaRepository: Getter<MangaRepository>,
   ) {
     super(Artist, dataSource);
-    this.oneshots = this.createHasManyRepositoryFactoryFor(
-      'oneshots',
-      getOneshotRepository,
-    );
-    this.series = this.createHasManyRepositoryFactoryFor(
-      'series',
-      getSeriesRepository,
+
+    this.mangas = this.createHasManyRepositoryFactoryFor(
+      'mangas',
+      getMangaRepository,
     );
   }
 }

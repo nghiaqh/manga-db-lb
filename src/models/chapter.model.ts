@@ -6,8 +6,7 @@ import {
   belongsTo,
 } from '@loopback/repository';
 import {Image} from './image.model';
-import {Oneshot} from './oneshot.model';
-import {Series} from './series.model';
+import {Manga} from './manga.model';
 import {Volume} from './volume.model';
 
 @model()
@@ -15,9 +14,9 @@ export class Chapter extends Entity {
   @property({
     type: 'number',
     id: true,
-    required: true,
+    generated: true,
   })
-  id: number;
+  id?: number;
 
   @property({
     type: 'string',
@@ -42,14 +41,11 @@ export class Chapter extends Entity {
   })
   number: number;
 
-  @hasMany(() => Image)
+  @hasMany(() => Image, {keyTo: 'id'})
   images?: Image[];
 
-  @belongsTo(() => Oneshot)
-  oneshotId: number;
-
-  @belongsTo(() => Series)
-  seriesId: number;
+  @belongsTo(() => Manga)
+  MangaId: number;
 
   @belongsTo(() => Volume)
   volumeId: number;

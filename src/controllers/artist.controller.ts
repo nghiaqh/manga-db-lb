@@ -16,7 +16,7 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import {Artist, Oneshot, Series} from '../models';
+import {Artist, Manga} from '../models';
 import {ArtistRepository} from '../repositories';
 
 export class ArtistController {

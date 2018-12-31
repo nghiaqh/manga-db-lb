@@ -1,15 +1,14 @@
 import {Entity, model, property, hasMany} from '@loopback/repository';
-import {Oneshot} from './oneshot.model';
-import {Series} from './series.model';
+import {Manga} from './manga.model';
 
 @model()
 export class Artist extends Entity {
   @property({
     type: 'number',
     id: true,
-    required: true,
+    generated: true,
   })
-  id: number;
+  id?: number;
 
   @property({
     type: 'string',
@@ -29,14 +28,12 @@ export class Artist extends Entity {
 
   @property({
     type: 'string',
+    default: 'Mangaka',
   })
   type?: string;
 
-  @hasMany(() => Oneshot)
-  oneshots?: Oneshot[];
-
-  @hasMany(() => Series)
-  series?: Series[];
+  @hasMany(() => Manga, {keyTo: 'id'})
+  mangas?: Manga[];
 
   constructor(data?: Partial<Artist>) {
     super(data);

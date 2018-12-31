@@ -10,13 +10,13 @@ import {Chapter} from './chapter.model';
 import {Artist} from './artist.model';
 
 @model()
-export class Series extends Entity {
+export class Manga extends Entity {
   @property({
     type: 'number',
     id: true,
-    required: true,
+    generated: true,
   })
-  id: number;
+  id?: number;
 
   @property({
     type: 'string',
@@ -30,12 +30,6 @@ export class Series extends Entity {
   description?: string;
 
   @property({
-    type: 'string',
-    default: 'Manga',
-  })
-  type?: string;
-
-  @property({
     type: 'array',
     itemType: 'number',
   })
@@ -46,18 +40,39 @@ export class Series extends Entity {
     default: false,
     required: true,
   })
-  isCompleted: string;
+  isCompleted: boolean;
 
-  @hasMany(() => Volume)
+  @property({
+    type: 'boolean',
+    default: false,
+    required: true,
+  })
+  isSeries: boolean;
+
+  @property({
+    type: 'boolean',
+    default: false,
+    required: true,
+  })
+  isTankoubou: boolean;
+
+  @property({
+    type: 'boolean',
+    default: false,
+    required: true,
+  })
+  isDoujinshi: boolean;
+
+  @hasMany(() => Volume, {keyTo: 'id'})
   volumes?: Volume[];
 
-  @hasMany(() => Chapter)
+  @hasMany(() => Chapter, {keyTo: 'id'})
   chapters?: Chapter[];
 
   @belongsTo(() => Artist)
   artistId: number;
 
-  constructor(data?: Partial<Series>) {
+  constructor(data?: Partial<Manga>) {
     super(data);
   }
 }
