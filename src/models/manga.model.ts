@@ -70,6 +70,16 @@ export class Manga extends Entity {
   })
   isNSFW: boolean;
 
+  @property({
+    type: 'date',
+  })
+  publishedAt: Date;
+
+  @property({
+    type: 'date',
+  })
+  modifiedAt: Date;
+
   @hasMany(() => Volume, {keyTo: 'id'})
   volumes?: Volume[];
 

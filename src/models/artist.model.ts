@@ -28,7 +28,7 @@ export class Artist extends Entity {
 
   @property({
     type: 'string',
-    default: 'Mangaka',
+    default: 'mangaka',
   })
   type?: string;
 

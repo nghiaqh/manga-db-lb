@@ -41,6 +41,16 @@ export class Chapter extends Entity {
   })
   number: number;
 
+  @property({
+    type: 'date',
+  })
+  publishedAt: Date;
+
+  @property({
+    type: 'date',
+  })
+  modifiedAt: Date;
+
   @hasMany(() => Image, {keyTo: 'id'})
   images?: Image[];
 

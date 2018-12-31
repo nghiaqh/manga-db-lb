@@ -40,6 +40,16 @@ export class Volume extends Entity {
   })
   number: number;
 
+  @property({
+    type: 'date',
+  })
+  publishedAt: Date;
+
+  @property({
+    type: 'date',
+  })
+  modifiedAt: Date;
+
   @hasMany(() => Chapter, {keyTo: 'id'})
   chapters?: Chapter[];
 
