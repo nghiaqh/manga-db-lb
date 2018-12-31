@@ -63,6 +63,13 @@ export class Manga extends Entity {
   })
   isDoujinshi: boolean;
 
+  @property({
+    type: 'boolean',
+    default: false,
+    required: true,
+  })
+  isNSFW: boolean;
+
   @hasMany(() => Volume, {keyTo: 'id'})
   volumes?: Volume[];
 
