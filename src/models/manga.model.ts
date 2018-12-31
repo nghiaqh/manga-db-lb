@@ -40,7 +40,7 @@ export class Manga extends Entity {
     default: false,
     required: true,
   })
-  isCompleted: boolean;
+  isComplete: boolean;
 
   @property({
     type: 'boolean',
