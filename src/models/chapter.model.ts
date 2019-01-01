@@ -68,7 +68,7 @@ export class Chapter extends Entity {
   mangaId: number;
 
   @belongsTo(() => Volume)
-  volumeId: number;
+  volumeId?: number;
 
   constructor(data?: Partial<Chapter>) {
     super(data);

@@ -27,6 +27,11 @@ export class Manga extends Entity {
   @property({
     type: 'string',
   })
+  shortTitle: string;
+
+  @property({
+    type: 'string',
+  })
   description?: string;
 
   @property({
