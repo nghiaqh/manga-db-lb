@@ -22,6 +22,11 @@ export class Artist extends Entity {
   biography?: string;
 
   @property({
+    type: 'string',
+  })
+  shortBiography?: string;
+
+  @property({
     type: 'object',
   })
   avatar?: object;

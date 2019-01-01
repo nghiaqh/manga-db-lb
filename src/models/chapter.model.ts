@@ -27,7 +27,17 @@ export class Chapter extends Entity {
   @property({
     type: 'string',
   })
+  shortTitle?: string;
+
+  @property({
+    type: 'string',
+  })
   description?: string;
+
+  @property({
+    type: 'string',
+  })
+  shortDescription?: string;
 
   @property({
     type: 'array',
