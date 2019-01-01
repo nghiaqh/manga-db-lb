@@ -41,10 +41,10 @@ export class Image extends Entity {
   height: number;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  ratio: string;
+  ratio: number;
 
   @belongsTo(() => Chapter)
   chapterId: number;
