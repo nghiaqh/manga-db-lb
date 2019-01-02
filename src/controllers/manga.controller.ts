@@ -76,20 +76,16 @@ export class MangaController {
     const mangas = await this.mangaRepository.find(filter);
 
     // workaround as filter[include]=artist does not work
-    if (includeArtist) {
-      const result = []
-      for (const manga of mangas) {
-        const artist = await this.mangaRepository.artist(manga.id)
-        result.push({
-          ...manga,
-          artist
-        })
-      }
-
-      return result
+    const result = []
+    for (const manga of mangas) {
+      const artist = await this.mangaRepository.artist(manga.id)
+      result.push({
+        ...manga,
+        artist
+      })
     }
 
-    return mangas
+    return result
   }
 
   @patch('/api/mangas', {
