@@ -16,20 +16,20 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import {Manga} from '../models';
-import {MangaRepository} from '../repositories';
+import { Manga } from '../models';
+import { MangaRepository } from '../repositories';
 
 export class MangaController {
   constructor(
     @repository(MangaRepository)
     public mangaRepository: MangaRepository,
-  ) {}
+  ) { }
 
   @post('/mangas', {
     responses: {
       '200': {
         description: 'Manga model instance',
-        content: {'application/json': {schema: {'x-ts-type': Manga}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Manga } } },
       },
     },
   })
@@ -41,7 +41,7 @@ export class MangaController {
     responses: {
       '200': {
         description: 'Manga model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -57,7 +57,7 @@ export class MangaController {
         description: 'Array of Manga model instances',
         content: {
           'application/json': {
-            schema: {type: 'array', items: {'x-ts-type': Manga}},
+            schema: { type: 'array', items: { 'x-ts-type': Manga } },
           },
         },
       },
@@ -65,15 +65,31 @@ export class MangaController {
   })
   async find(
     @param.query.object('filter', getFilterSchemaFor(Manga)) filter?: Filter,
-  ): Promise<Manga[]> {
-    return await this.mangaRepository.find(filter);
+    @param.query.string('includeArtist') includeArtist?: boolean,
+  ): Promise<Manga[] | object[]> {
+    const mangas = await this.mangaRepository.find(filter);
+
+    if (includeArtist) {
+      const result = []
+      for (const manga of mangas) {
+        const artist = await this.mangaRepository.artist(manga.id)
+        result.push({
+          ...manga,
+          artist
+        })
+      }
+
+      return result
+    }
+
+    return mangas
   }
 
   @patch('/mangas', {
     responses: {
       '200': {
         description: 'Manga PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -88,12 +104,24 @@ export class MangaController {
     responses: {
       '200': {
         description: 'Manga model instance',
-        content: {'application/json': {schema: {'x-ts-type': Manga}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Manga } } },
       },
     },
   })
-  async findById(@param.path.number('id') id: number): Promise<Manga> {
-    return await this.mangaRepository.findById(id);
+  async findById(
+    @param.path.number('id') id: number,
+    @param.query.string('includeArtist') includeArtist?: boolean,
+  ): Promise<Manga | object> {
+    const manga = await this.mangaRepository.findById(id);
+    if (includeArtist) {
+      const artist = await this.mangaRepository.artist(manga.id)
+      return {
+        ...manga,
+        artist
+      }
+    }
+
+    return manga
   }
 
   @patch('/mangas/{id}', {
