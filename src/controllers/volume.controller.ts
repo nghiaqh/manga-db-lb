@@ -16,20 +16,20 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import {Volume} from '../models';
-import {VolumeRepository} from '../repositories';
+import { Volume } from '../models';
+import { VolumeRepository } from '../repositories';
 
 export class VolumeController {
   constructor(
     @repository(VolumeRepository)
-    public volumeRepository : VolumeRepository,
-  ) {}
+    public volumeRepository: VolumeRepository,
+  ) { }
 
-  @post('/volumes', {
+  @post('/api/volumes', {
     responses: {
       '200': {
         description: 'Volume model instance',
-        content: {'application/json': {schema: {'x-ts-type': Volume}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Volume } } },
       },
     },
   })
@@ -37,11 +37,11 @@ export class VolumeController {
     return await this.volumeRepository.create(volume);
   }
 
-  @get('/volumes/count', {
+  @get('/api/volumes/count', {
     responses: {
       '200': {
         description: 'Volume model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -51,13 +51,13 @@ export class VolumeController {
     return await this.volumeRepository.count(where);
   }
 
-  @get('/volumes', {
+  @get('/api/volumes', {
     responses: {
       '200': {
         description: 'Array of Volume model instances',
         content: {
           'application/json': {
-            schema: {type: 'array', items: {'x-ts-type': Volume}},
+            schema: { type: 'array', items: { 'x-ts-type': Volume } },
           },
         },
       },
@@ -69,11 +69,11 @@ export class VolumeController {
     return await this.volumeRepository.find(filter);
   }
 
-  @patch('/volumes', {
+  @patch('/api/volumes', {
     responses: {
       '200': {
         description: 'Volume PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -84,11 +84,11 @@ export class VolumeController {
     return await this.volumeRepository.updateAll(volume, where);
   }
 
-  @get('/volumes/{id}', {
+  @get('/api/volumes/{id}', {
     responses: {
       '200': {
         description: 'Volume model instance',
-        content: {'application/json': {schema: {'x-ts-type': Volume}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Volume } } },
       },
     },
   })
@@ -96,7 +96,7 @@ export class VolumeController {
     return await this.volumeRepository.findById(id);
   }
 
-  @patch('/volumes/{id}', {
+  @patch('/api/volumes/{id}', {
     responses: {
       '204': {
         description: 'Volume PATCH success',
@@ -110,7 +110,7 @@ export class VolumeController {
     await this.volumeRepository.updateById(id, volume);
   }
 
-  @put('/volumes/{id}', {
+  @put('/api/volumes/{id}', {
     responses: {
       '204': {
         description: 'Volume PUT success',
@@ -124,7 +124,7 @@ export class VolumeController {
     await this.volumeRepository.replaceById(id, volume);
   }
 
-  @del('/volumes/{id}', {
+  @del('/api/volumes/{id}', {
     responses: {
       '204': {
         description: 'Volume DELETE success',

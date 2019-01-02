@@ -31,7 +31,7 @@ export class MangaController {
     public imageRepository: ImageRepository
   ) { }
 
-  @post('/mangas', {
+  @post('/api/mangas', {
     responses: {
       '200': {
         description: 'Manga model instance',
@@ -43,7 +43,7 @@ export class MangaController {
     return await this.mangaRepository.create(manga);
   }
 
-  @get('/mangas/count', {
+  @get('/api/mangas/count', {
     responses: {
       '200': {
         description: 'Manga model count',
@@ -57,7 +57,7 @@ export class MangaController {
     return await this.mangaRepository.count(where);
   }
 
-  @get('/mangas', {
+  @get('/api/mangas', {
     responses: {
       '200': {
         description: 'Array of Manga model instances',
@@ -92,7 +92,7 @@ export class MangaController {
     return mangas
   }
 
-  @patch('/mangas', {
+  @patch('/api/mangas', {
     responses: {
       '200': {
         description: 'Manga PATCH success count',
@@ -107,7 +107,7 @@ export class MangaController {
     return await this.mangaRepository.updateAll(manga, where);
   }
 
-  @get('/mangas/{id}', {
+  @get('/api/mangas/{id}', {
     responses: {
       '200': {
         description: 'Manga model instance',
@@ -167,7 +167,7 @@ export class MangaController {
     }
   }
 
-  @patch('/mangas/{id}', {
+  @patch('/api/mangas/{id}', {
     responses: {
       '204': {
         description: 'Manga PATCH success',
@@ -181,7 +181,7 @@ export class MangaController {
     await this.mangaRepository.updateById(id, manga);
   }
 
-  @put('/mangas/{id}', {
+  @put('/api/mangas/{id}', {
     responses: {
       '204': {
         description: 'Manga PUT success',
@@ -195,7 +195,7 @@ export class MangaController {
     await this.mangaRepository.replaceById(id, manga);
   }
 
-  @del('/mangas/{id}', {
+  @del('/api/mangas/{id}', {
     responses: {
       '204': {
         description: 'Manga DELETE success',

@@ -16,20 +16,20 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import {Chapter} from '../models';
-import {ChapterRepository} from '../repositories';
+import { Chapter } from '../models';
+import { ChapterRepository } from '../repositories';
 
 export class ChapterController {
   constructor(
     @repository(ChapterRepository)
-    public chapterRepository : ChapterRepository,
-  ) {}
+    public chapterRepository: ChapterRepository,
+  ) { }
 
-  @post('/chapters', {
+  @post('/api/chapters', {
     responses: {
       '200': {
         description: 'Chapter model instance',
-        content: {'application/json': {schema: {'x-ts-type': Chapter}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Chapter } } },
       },
     },
   })
@@ -37,11 +37,11 @@ export class ChapterController {
     return await this.chapterRepository.create(chapter);
   }
 
-  @get('/chapters/count', {
+  @get('/api/chapters/count', {
     responses: {
       '200': {
         description: 'Chapter model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -51,13 +51,13 @@ export class ChapterController {
     return await this.chapterRepository.count(where);
   }
 
-  @get('/chapters', {
+  @get('/api/chapters', {
     responses: {
       '200': {
         description: 'Array of Chapter model instances',
         content: {
           'application/json': {
-            schema: {type: 'array', items: {'x-ts-type': Chapter}},
+            schema: { type: 'array', items: { 'x-ts-type': Chapter } },
           },
         },
       },
@@ -69,11 +69,11 @@ export class ChapterController {
     return await this.chapterRepository.find(filter);
   }
 
-  @patch('/chapters', {
+  @patch('/api/chapters', {
     responses: {
       '200': {
         description: 'Chapter PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -84,11 +84,11 @@ export class ChapterController {
     return await this.chapterRepository.updateAll(chapter, where);
   }
 
-  @get('/chapters/{id}', {
+  @get('/api/chapters/{id}', {
     responses: {
       '200': {
         description: 'Chapter model instance',
-        content: {'application/json': {schema: {'x-ts-type': Chapter}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Chapter } } },
       },
     },
   })
@@ -96,7 +96,7 @@ export class ChapterController {
     return await this.chapterRepository.findById(id);
   }
 
-  @patch('/chapters/{id}', {
+  @patch('/api/chapters/{id}', {
     responses: {
       '204': {
         description: 'Chapter PATCH success',
@@ -110,7 +110,7 @@ export class ChapterController {
     await this.chapterRepository.updateById(id, chapter);
   }
 
-  @put('/chapters/{id}', {
+  @put('/api/chapters/{id}', {
     responses: {
       '204': {
         description: 'Chapter PUT success',
@@ -124,7 +124,7 @@ export class ChapterController {
     await this.chapterRepository.replaceById(id, chapter);
   }
 
-  @del('/chapters/{id}', {
+  @del('/api/chapters/{id}', {
     responses: {
       '204': {
         description: 'Chapter DELETE success',
