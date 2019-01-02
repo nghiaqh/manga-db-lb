@@ -16,13 +16,19 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import { Manga } from '../models';
-import { MangaRepository } from '../repositories';
+import { Manga, Image } from '../models';
+import { MangaRepository, VolumeRepository, ChapterRepository, ImageRepository } from '../repositories';
 
 export class MangaController {
   constructor(
     @repository(MangaRepository)
     public mangaRepository: MangaRepository,
+    @repository(ChapterRepository)
+    public chapterRepository: ChapterRepository,
+    @repository(VolumeRepository)
+    public volumeRepository: VolumeRepository,
+    @repository(ImageRepository)
+    public imageRepository: ImageRepository
   ) { }
 
   @post('/mangas', {
@@ -69,6 +75,7 @@ export class MangaController {
   ): Promise<Manga[] | object[]> {
     const mangas = await this.mangaRepository.find(filter);
 
+    // workaround as filter[include]=artist does not work
     if (includeArtist) {
       const result = []
       for (const manga of mangas) {
@@ -109,19 +116,55 @@ export class MangaController {
     },
   })
   async findById(
-    @param.path.number('id') id: number,
-    @param.query.string('includeArtist') includeArtist?: boolean,
+    @param.path.number('id') id: number
   ): Promise<Manga | object> {
     const manga = await this.mangaRepository.findById(id);
-    if (includeArtist) {
-      const artist = await this.mangaRepository.artist(manga.id)
-      return {
-        ...manga,
-        artist
+
+    // number of volumes
+    const volumesCount = await this.volumeRepository.count({ mangaId: manga.id })
+
+    // number of chapters
+    const chaptersCount = await this.chapterRepository.count({ mangaId: manga.id })
+
+    // get artist details
+    const artist = await this.mangaRepository.artist(manga.id)
+
+    // get preview images
+    let previewImages: Image[] = []
+
+    if (manga.preview) {
+      for (const imageId of manga.preview) {
+        const images = await this.imageRepository.find({
+          where: {
+            id: imageId
+          }
+        })
+        previewImages = previewImages.concat(images)
       }
     }
+    else if (chaptersCount.count) {
+      const firstChapter = await this.chapterRepository.find({
+        where: {
+          mangaId: manga.id
+        },
+        limit: 1
+      })
+      previewImages = await this.imageRepository.find({
+        where: {
+          chapterId: firstChapter[0].id
+        },
+        limit: 4,
+        order: ['number']
+      })
+    }
 
-    return manga
+    return {
+      ...manga,
+      artist,
+      volumesCount: volumesCount.count,
+      chaptersCount: chaptersCount.count,
+      previewImages
+    }
   }
 
   @patch('/mangas/{id}', {
