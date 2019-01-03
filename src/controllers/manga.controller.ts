@@ -70,8 +70,7 @@ export class MangaController {
     },
   })
   async find(
-    @param.query.object('filter', getFilterSchemaFor(Manga)) filter?: Filter,
-    @param.query.string('includeArtist') includeArtist?: boolean,
+    @param.query.object('filter', getFilterSchemaFor(Manga)) filter?: Filter
   ): Promise<Manga[] | object[]> {
     const mangas = await this.mangaRepository.find(filter);
 
