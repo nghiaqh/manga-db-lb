@@ -72,16 +72,14 @@ export class MangaController {
   async find(
     @param.query.object('filter', getFilterSchemaFor(Manga)) filter?: Filter
   ): Promise<Manga[] | object[]> {
+
     const mangas = await this.mangaRepository.find(filter);
 
     // workaround as filter[include]=artist does not work
     const result = []
     for (const manga of mangas) {
-      const artist = await this.mangaRepository.artist(manga.id)
-      result.push({
-        ...manga,
-        artist
-      })
+      const data = await this.getMangaData(manga)
+      result.push(data)
     }
 
     return result
@@ -114,7 +112,49 @@ export class MangaController {
     @param.path.number('id') id: number
   ): Promise<Manga | object> {
     const manga = await this.mangaRepository.findById(id);
+    return await this.getMangaData(manga)
+  }
 
+  @patch('/api/mangas/{id}', {
+    responses: {
+      '204': {
+        description: 'Manga PATCH success',
+      },
+    },
+  })
+  async updateById(
+    @param.path.number('id') id: number,
+    @requestBody() manga: Manga,
+  ): Promise<void> {
+    await this.mangaRepository.updateById(id, manga);
+  }
+
+  @put('/api/mangas/{id}', {
+    responses: {
+      '204': {
+        description: 'Manga PUT success',
+      },
+    },
+  })
+  async replaceById(
+    @param.path.number('id') id: number,
+    @requestBody() manga: Manga,
+  ): Promise<void> {
+    await this.mangaRepository.replaceById(id, manga);
+  }
+
+  @del('/api/mangas/{id}', {
+    responses: {
+      '204': {
+        description: 'Manga DELETE success',
+      },
+    },
+  })
+  async deleteById(@param.path.number('id') id: number): Promise<void> {
+    await this.mangaRepository.deleteById(id);
+  }
+
+  async getMangaData(manga: Manga): Promise<object> {
     // number of volumes
     const volumesCount = await this.volumeRepository.count({ mangaId: manga.id })
 
@@ -160,44 +200,5 @@ export class MangaController {
       chaptersCount: chaptersCount.count,
       previewImages
     }
-  }
-
-  @patch('/api/mangas/{id}', {
-    responses: {
-      '204': {
-        description: 'Manga PATCH success',
-      },
-    },
-  })
-  async updateById(
-    @param.path.number('id') id: number,
-    @requestBody() manga: Manga,
-  ): Promise<void> {
-    await this.mangaRepository.updateById(id, manga);
-  }
-
-  @put('/api/mangas/{id}', {
-    responses: {
-      '204': {
-        description: 'Manga PUT success',
-      },
-    },
-  })
-  async replaceById(
-    @param.path.number('id') id: number,
-    @requestBody() manga: Manga,
-  ): Promise<void> {
-    await this.mangaRepository.replaceById(id, manga);
-  }
-
-  @del('/api/mangas/{id}', {
-    responses: {
-      '204': {
-        description: 'Manga DELETE success',
-      },
-    },
-  })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
-    await this.mangaRepository.deleteById(id);
   }
 }
