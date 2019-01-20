@@ -5,9 +5,9 @@ import {
   hasMany,
   belongsTo,
 } from '@loopback/repository';
-import {Volume} from './volume.model';
-import {Chapter} from './chapter.model';
-import {Artist} from './artist.model';
+import { Volume } from './volume.model';
+import { Chapter } from './chapter.model';
+import { Artist } from './artist.model';
 
 @model()
 export class Manga extends Entity {
@@ -90,10 +90,10 @@ export class Manga extends Entity {
   })
   modifiedAt: Date;
 
-  @hasMany(() => Volume, {keyTo: 'id'})
+  @hasMany(() => Volume, { keyTo: 'id' })
   volumes?: Volume[];
 
-  @hasMany(() => Chapter, {keyTo: 'id'})
+  @hasMany(() => Chapter, { keyTo: 'id' })
   chapters?: Chapter[];
 
   @belongsTo(() => Artist)

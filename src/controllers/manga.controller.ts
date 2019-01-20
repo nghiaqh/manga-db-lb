@@ -182,14 +182,15 @@ export class MangaController {
         where: {
           mangaId: manga.id
         },
-        limit: 1
+        limit: 1,
+        order: manga.isSeries ? ['number DESC'] : ['number ASC']
       })
       previewImages = await this.imageRepository.find({
         where: {
           chapterId: firstChapter[0].id
         },
         limit: 4,
-        order: ['number']
+        order: ['number ASC']
       })
     }
 
