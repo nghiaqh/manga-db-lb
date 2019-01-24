@@ -34,3 +34,51 @@ Install the following extensions:
    suite and lint the code for both programming and style errors. You should run
    this command manually whenever you have new changes to test. Test failures
    and linter errors will be printed to the terminal.
+
+# mysql operator:
+
+```js
+  switch (operator) {
+    case 'gt':
+      sqlExp += '>';
+      break;
+    case 'gte':
+      sqlExp += '>=';
+      break;
+    case 'lt':
+      sqlExp += '<';
+      break;
+    case 'lte':
+      sqlExp += '<=';
+      break;
+    case 'between':
+      sqlExp += ' BETWEEN ';
+      clause = buildClause(columnValue, ' AND ', false);
+      break;
+    case 'inq':
+      sqlExp += ' IN ';
+      clause = buildClause(columnValue, ',', true);
+      break;
+    case 'nin':
+      sqlExp += ' NOT IN ';
+      clause = buildClause(columnValue, ',', true);
+      break;
+    case 'neq':
+      if (columnValue == null) {
+        return new ParameterizedSQL(sqlExp + ' IS NOT NULL');
+      }
+      sqlExp += '!=';
+      break;
+    case 'like':
+      sqlExp += ' LIKE ';
+      break;
+    case 'nlike':
+      sqlExp += ' NOT LIKE ';
+      break;
+    // this case not needed since each database has its own regex syntax, but
+    // we leave the MySQL syntax here as a placeholder
+    case 'regexp':
+      sqlExp += ' REGEXP ';
+      break;
+  }
+```
