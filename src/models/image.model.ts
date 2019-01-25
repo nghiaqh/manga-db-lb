@@ -1,5 +1,5 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
-import {Chapter} from './chapter.model';
+import { Entity, model, property, belongsTo } from '@loopback/repository';
+import { Chapter } from './chapter.model';
 
 @model()
 export class Image extends Entity {
@@ -45,6 +45,13 @@ export class Image extends Entity {
     required: true,
   })
   ratio: number;
+
+  @property({
+    type: 'boolean',
+    default: false,
+    required: true,
+  })
+  isNSFW: boolean;
 
   @belongsTo(() => Chapter)
   chapterId: number;

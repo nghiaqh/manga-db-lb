@@ -56,6 +56,13 @@ export class Chapter extends Entity {
   number: number;
 
   @property({
+    type: 'boolean',
+    default: false,
+    required: true,
+  })
+  isNSFW: boolean;
+
+  @property({
     type: 'date',
   })
   publishedAt: Date;

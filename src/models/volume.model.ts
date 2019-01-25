@@ -54,6 +54,13 @@ export class Volume extends Entity {
   number: number;
 
   @property({
+    type: 'boolean',
+    default: false,
+    required: true,
+  })
+  isNSFW: boolean;
+
+  @property({
     type: 'date',
   })
   publishedAt: Date;
