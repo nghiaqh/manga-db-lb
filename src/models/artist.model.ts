@@ -1,5 +1,5 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
-import {Manga} from './manga.model';
+import { Entity, model, property, hasMany } from '@loopback/repository';
+import { Manga } from './manga.model';
 
 @model()
 export class Artist extends Entity {
@@ -18,11 +18,15 @@ export class Artist extends Entity {
 
   @property({
     type: 'string',
+    dataLength: 65000,
   })
   biography?: string;
 
   @property({
     type: 'string',
+    mysql: {
+      dataType: 'LONGTEXT'
+    }
   })
   shortBiography?: string;
 
@@ -37,7 +41,7 @@ export class Artist extends Entity {
   })
   type?: string;
 
-  @hasMany(() => Manga, {keyTo: 'id'})
+  @hasMany(() => Manga, { keyTo: 'id' })
   mangas?: Manga[];
 
   constructor(data?: Partial<Artist>) {

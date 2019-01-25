@@ -5,9 +5,9 @@ import {
   hasMany,
   belongsTo,
 } from '@loopback/repository';
-import {Image} from './image.model';
-import {Manga} from './manga.model';
-import {Volume} from './volume.model';
+import { Image } from './image.model';
+import { Manga } from './manga.model';
+import { Volume } from './volume.model';
 
 @model()
 export class Chapter extends Entity {
@@ -26,13 +26,17 @@ export class Chapter extends Entity {
 
   @property({
     type: 'string',
+    dataLength: 65000,
   })
   shortTitle?: string;
 
   @property({
     type: 'string',
+    mysql: {
+      dataType: 'LONGTEXT'
+    }
   })
-  description?: string;
+  description?: 'string';
 
   @property({
     type: 'string',
@@ -61,7 +65,7 @@ export class Chapter extends Entity {
   })
   modifiedAt: Date;
 
-  @hasMany(() => Image, {keyTo: 'id'})
+  @hasMany(() => Image, { keyTo: 'id' })
   images?: Image[];
 
   @belongsTo(() => Manga)

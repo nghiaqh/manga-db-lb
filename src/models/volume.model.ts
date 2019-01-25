@@ -5,8 +5,8 @@ import {
   hasMany,
   belongsTo,
 } from '@loopback/repository';
-import {Chapter} from './chapter.model';
-import {Manga} from './manga.model';
+import { Chapter } from './chapter.model';
+import { Manga } from './manga.model';
 
 @model()
 export class Volume extends Entity {
@@ -30,6 +30,9 @@ export class Volume extends Entity {
 
   @property({
     type: 'string',
+    mysql: {
+      dataType: 'LONGTEXT'
+    }
   })
   description?: string;
 
@@ -60,7 +63,7 @@ export class Volume extends Entity {
   })
   modifiedAt: Date;
 
-  @hasMany(() => Chapter, {keyTo: 'id'})
+  @hasMany(() => Chapter, { keyTo: 'id' })
   chapters?: Chapter[];
 
   @belongsTo(() => Manga)

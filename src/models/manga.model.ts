@@ -31,13 +31,16 @@ export class Manga extends Entity {
 
   @property({
     type: 'string',
+    mysql: {
+      dataType: 'LONGTEXT'
+    }
   })
-  description?: string;
+  description: string;
 
   @property({
     type: 'string',
   })
-  shortDescription?: string;
+  shortDescription: string;
 
   @property({
     type: 'array',
