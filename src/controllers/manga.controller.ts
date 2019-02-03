@@ -197,7 +197,7 @@ export class MangaController {
     }
 
     // series with volumes
-    else if (chaptersCount.count && manga.isSeries && volumesCount) {
+    else if (chaptersCount.count && manga.isSeries && volumesCount.count) {
       const volumes = await this.volumeRepository.find({
         where: {
           mangaId: manga.id
@@ -229,7 +229,7 @@ export class MangaController {
     }
 
     // series with only chapters
-    else if (chaptersCount.count && manga.isSeries && chaptersCount) {
+    else if (chaptersCount.count && manga.isSeries && chaptersCount.count) {
       const chapters = await this.chapterRepository.find({
         where: {
           mangaId: manga.id
