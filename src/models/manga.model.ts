@@ -91,6 +91,11 @@ export class Manga extends Entity {
   @property({
     type: 'date',
   })
+  latestPublishedAt: Date;
+
+  @property({
+    type: 'date',
+  })
   modifiedAt: Date;
 
   @hasMany(() => Volume, { keyTo: 'id' })

@@ -177,7 +177,7 @@ export class MangaController {
         previewImages = previewImages.concat(images)
       }
     }
-    else if (chaptersCount.count) {
+    else if (chaptersCount.count && !manga.isSeries) {
       const firstChapter = await this.chapterRepository.find({
         where: {
           mangaId: manga.id
@@ -192,6 +192,36 @@ export class MangaController {
         limit: 4,
         order: ['number ASC']
       })
+    }
+    else if (chaptersCount.count && manga.isSeries) {
+      const volumes = await this.volumeRepository.find({
+        where: {
+          mangaId: manga.id
+        },
+        limit: 4,
+        order: ['number DESC']
+      })
+
+      for (const vol of volumes) {
+        const chapter = await this.chapterRepository.find({
+          where: {
+            volumeId: vol.id
+          },
+          limit: 1,
+          order: ['number ASC']
+        })
+
+        if (chapter.length) {
+          const images = await this.imageRepository.find({
+            where: {
+              chapterId: chapter[0].id
+            },
+            limit: 1,
+            order: ['number ASC']
+          })
+          if (images.length) previewImages.push(images[0])
+        }
+      }
     }
 
     return {
